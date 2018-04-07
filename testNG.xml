@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="My Suite" verbose="1">
+    <listeners>
+        <listener class-name="com.cleartrip.commonutilities.Listeners.TestListener"/>
+        <listener class-name="com.cleartrip.commonutilities.Listeners.AnnotationTransformer"/>
+    </listeners>
+    <!--<parameter name="location" value="London"></parameter>-->
+    <!--Note test tag has the timeout attribute-->
+    <test name="First Test" time-out="120000">
+        <classes>
+            <class name="com.cleartrip.testsuite.BaseTest">
+                <methods>
+                    <exclude name="(test.)\w+"></exclude>
+                    <exclude name="searchMultiCity"></exclude>
+                    <include name="searchOneWay"></include>
+                    <include name="searchRoundTrip"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-->The bean element is used to define the bean for the given class. The property subelement of bean specifies the
+property of the Student class named name. The value specified in the property element will be set in the Student class
+object by the IOC container.
+<-->
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+               http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="studentbean" class="com.corejava.assignments.spring.sampleapplication.Student">
+        <property name="name" value="Mahesh Bhosale"></property>
+    </bean>
+
+    <!--Constructor Dependency Injection-->
+    <bean id="addressbean" class="com.corejava.assignments.spring.sampleapplication.Address">
+        <constructor-arg value="Pune"></constructor-arg>
+        <constructor-arg value="Maharashtra"></constructor-arg>
+        <constructor-arg value="India"></constructor-arg>
+    </bean>
+
+    <bean id="employeebean" class="com.corejava.assignments.spring.sampleapplication.EmployeeConstructorInjection">
+        <constructor-arg value="546198" type="int"></constructor-arg>
+        <constructor-arg value="Mahesh Bhosale"></constructor-arg>
+        <constructor-arg>
+            <ref bean="addressbean"></ref>
+        </constructor-arg>
+    </bean>
+
+    <!--Setter Dependency Injection-->
+    <bean id="addresssetterbean" class="com.corejava.assignments.spring.sampleapplication.AddressSetterInjection">
+        <property name="city" value="Pune"></property>
+        <property name="state" value="Maharashtra"></property>
+        <property name="country" value="India"></property>
+    </bean>
+
+    <bean id="employeesetterbean" class="com.corejava.assignments.spring.sampleapplication.EmployeeSetterInjection">
+        <property name="id" value="546198"></property>
+        <property name="name" value="Mahesh Bhosale"></property>
+        <property name="address" ref="addresssetterbean"></property>
+    </bean>
+
+    <!--Constructor Dependency Injection with collection-->
+    <bean id="questionbeanconstructordi"
+          class="com.corejava.assignments.spring.sampleapplication.QuestionListObjectConstructorInjection">
+        <constructor-arg value="1" type="int"></constructor-arg>
+        <constructor-arg value="What is Java?"></constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref bean="answerbean1"></ref>
+                <ref bean="answerbean2"></ref>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="answerbean1" class="com.corejava.assignments.spring.sampleapplication.Answer">
+        <constructor-arg value="1" type="int"></constructor-arg>
+        <constructor-arg value="Java is aautowiring Programing Language"></constructor-arg>
+        <constructor-arg value="Mahesh"></constructor-arg>
+    </bean>
+    <bean id="answerbean2" class="com.corejava.assignments.spring.sampleapplication.Answer">
+        <constructor-arg value="2" type="int"></constructor-arg>
+        <constructor-arg value="Java is aautowiring Platform"></constructor-arg>
+        <constructor-arg value="Kiran"></constructor-arg>
+    </bean>
+
+    <!--Setter Dependency Injection with collection-->
+    <bean id="questionbeansetterdi"
+          class="com.corejava.assignments.spring.sampleapplication.QuestionListObjectSetterInjection">
+        <property name="id" value="1"></property>
+        <property name="name" value="What is Java?"></property>
+        <property name="answers">
+            <list>
+                <ref bean="answerbeansetter1"></ref>
+                <ref bean="answerbeansetter2"></ref>
+            </list>
+        </property>
+    </bean>
+    <bean id="answerbeansetter1" class="com.corejava.assignments.spring.sampleapplication.AnswerSetter">
+        <property name="id" value="1"></property>
+        <property name="name" value="Java is aautowiring Programing Language"></property>
+        <property name="by" value="Mahesh"></property>
+    </bean>
+    <bean id="answerbeansetter2" class="com.corejava.assignments.spring.sampleapplication.AnswerSetter">
+        <property name="id" value="2"></property>
+        <property name="name" value="Java is aautowiring Platform"></property>
+        <property name="by" value="Kiran"></property>
+    </bean>
+
+    <!-- setter autowiring byName. Note it doesn't require property element declaration for the Dependency Bean Object injection. ><-->
+    <bean id="bautowiring" class="com.corejava.assignments.spring.sampleapplication.Bautowiring"></bean>
+    <bean id="aautowiring" class="com.corejava.assignments.spring.sampleapplication.Aautowiring"
+          autowire="byType"></bean>
+
+    <!-- setter autowiring byType. There must be only one bean though its name in the aggregating bean maybe different
+    type of bean can track it><-->
+    <!--<bean id="bautowiringtype" class="com.corejava.assignments.spring.sampleapplication.Bautowiring"></bean>-->
+    <bean id="aautowiringtype" class="com.corejava.assignments.spring.sampleapplication.Aautowiring"
+          autowire="byType"></bean>
+
+    <!-->You can use @Autowired annotation on setter methods to get rid of the <property> element in XML configuration
+    file.When Spring finds an @Autowired annotation used with setter methods, it tries to perform byType autowiring on
+    the method. Note it doesn't require autowire element attribute
+    Note: It requires context tags & the context schemalocation defined at the beginning
+    <-->
+    <context:annotation-config/>
+    <bean id="texteditorautowiring"
+          class="com.corejava.assignments.spring.sampleapplication.TextEditorAnnotationAutowiring"></bean>
+    <bean id="spellcheckerautowiring"
+          class="com.corejava.assignments.spring.sampleapplication.SpellCheckerAnnotationAutowiring"></bean>
+</beans>
