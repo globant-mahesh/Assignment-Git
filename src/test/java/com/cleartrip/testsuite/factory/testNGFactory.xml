@@ -1,0 +1,28 @@
+<suite name="factorySuite" time-out="120000"  parallel = "instances" thread-count = "2" verbose="1">
+    <!--group-by-instances will execute test methods sequentially (not preferable for parallelism)-->
+    <test name="factoryTest1" group-by-instances="true">
+        <classes>
+            <!--This the actual poingt of execution. Note that it is the factory class-->
+            <!--<class name="com.cleartrip.testsuite.factory.Factory">-->
+                <!--<methods>-->
+                    <!--<include name="searchPackage"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+            <class name="com.cleartrip.testsuite.TestNgRunner">
+                <methods>
+                    <include name="searchPackage"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <!--<test name="factoryTest2" group-by-instances="true">-->
+        <!--<classes>-->
+            <!--&lt;!&ndash;This the actual poingt of execution. Note that it is the factory class&ndash;&gt;-->
+            <!--<class name="com.cleartrip.testsuite.factory.Factory">-->
+                <!--<methods>-->
+                    <!--<include name="searchPackage"></include>-->
+                <!--</methods>-->
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
+</suite>
